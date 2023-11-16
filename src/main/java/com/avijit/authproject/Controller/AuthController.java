@@ -2,22 +2,27 @@ package com.avijit.authproject.Controller;
 
 
 import com.avijit.authproject.DTO.RequestLoginDto;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.avijit.authproject.DTO.ResponseLoginDto;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/home")
 public class AuthController {
+    @PostMapping("/auth")
+    public ResponseLoginDto login(){
+//        System.out.println("In log");
 
-    @RequestMapping("login")
-    public void login(@RequestBody RequestLoginDto requestLoginDto){
+        ResponseLoginDto responseLoginDto = new ResponseLoginDto();
+        responseLoginDto.setToken("mytoken");
 
+        return responseLoginDto;
     }
 
-    @PostMapping("/valid"  )
-    public void validate(){
 
+    @GetMapping("/check")
+    public ResponseLoginDto validate(){
+        return  null;
     }
+
+
 }
