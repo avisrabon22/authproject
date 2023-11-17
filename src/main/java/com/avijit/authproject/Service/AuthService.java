@@ -1,13 +1,10 @@
 package com.avijit.authproject.Service;
 
-
 import com.avijit.authproject.Model.Session;
 import com.avijit.authproject.Model.User;
 import com.avijit.authproject.Repo.SessionRepo;
 import com.avijit.authproject.Repo.UserRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +18,6 @@ public class AuthService implements AuthInterface{
         this.userRepo = userRepo;
     }
 
-
     @Override
     public String login(String emailId,String password,String fullName) {
         User user = new User();
@@ -29,23 +25,22 @@ public class AuthService implements AuthInterface{
         user.setPassword(password);
         user.setFullName(fullName);
         userRepo.save(user);
-        String token=TokenGenrator.generateRandomString(20);
+        String token = TokenGenrator.generateRandomString(20);
         Session session = new Session();
         session.setToken(token);
         session.setUser(user);
-        sessionRepo.save(session,user);
+        sessionRepo.save(session, user);
+
+
         return token;
     }
 
+
+
     @Override
     public boolean validate(String token) {
-        List<Session> sessions = new ArrayList<>();
-        sessions = sessionRepo.findAll();
-        for(Session session:sessions){
-            if(session.getToken().equals(token)){
-                return false;
-            }
-        }
-        return true;
+        return sessionRepo.findByToken(token).isPresent();
     }
+
+
 }

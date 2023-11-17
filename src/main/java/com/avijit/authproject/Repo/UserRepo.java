@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepo extends JpaRepository<User,Long> {
-     User save(User user);
+    User save(User user);
+
 }

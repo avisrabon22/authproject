@@ -2,7 +2,7 @@ package com.avijit.authproject.Model;
 
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,8 +10,7 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Session extends BaseModel{
-
-    @OneToOne
+    @ManyToOne
     private User user;
     private String token;
 }
