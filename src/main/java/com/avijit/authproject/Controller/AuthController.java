@@ -21,22 +21,20 @@ public class AuthController {
     }
 
 
-
     @PostMapping("/auth")
-    public ResponseEntity<String> login(@RequestBody RequestLoginDto requestLoginDto){
+    public ResponseEntity<ResponseLoginDto> login(@RequestBody RequestLoginDto requestLoginDto){
         System.out.println("In log");
         ResponseLoginDto responseLoginDto = new ResponseLoginDto();
         responseLoginDto.setToken(authInterface.login(requestLoginDto.getEmailId(),requestLoginDto.getPassword(),requestLoginDto.getFullName()));
 
-        return new ResponseEntity<> (responseLoginDto.getToken(), HttpStatus.CREATED);
+
+
+        return new ResponseEntity<> (responseLoginDto, HttpStatus.CREATED);
     }
 
     @GetMapping("/check/{token}")
-    public boolean validate(@PathVariable String token){
-        if(authInterface.validate(token)){
-            return true;
-        }
-        return  false;
+    public boolean validate(@PathVariable("token") String token){
+        return authInterface.validate(token);
     }
 
 }
